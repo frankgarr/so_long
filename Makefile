@@ -6,7 +6,7 @@
 #    By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 11:37:45 by frankgar          #+#    #+#              #
-#    Updated: 2024/02/25 11:22:55 by frankgar         ###   ########.fr        #
+#    Updated: 2024/03/11 12:31:58 by frankgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 INCLUDES = -I ./inc/\
            -I ./libft/\
 		   -I ./Minilibx/
-SRC = parsing.c parsing_utils.c main.c
+SRC = parsing.c parsing_utils.c main.c globals.c init_mlx.c utils.c \
+		ilumination.c
 
 DIR_SRC = ./src
 DIR_OBJ = $(DIR_SRC)/obj

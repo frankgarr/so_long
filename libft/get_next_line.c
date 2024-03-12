@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 10:48:03 by frankgar          #+#    #+#             */
-/*   Updated: 2024/02/22 19:38:02 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:40:13 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*take_line(char *buf, char *line)
 		len++;
 	if (buf[len] == '\n')
 		len++;
-	line = malloc((len + 1) * sizeof(char));
+	line = malloc(len + 1 * sizeof(char));
 	if (!line)
 		return (NULL);
 	line[len] = '\0';
@@ -60,7 +60,7 @@ char	*read_line(int fd, char *buf, int byte)
 	char	*tmp;
 
 	checker = 0;
-	tmpbuf = malloc((BUFFER_SIZE + 1) * sizeof (char));
+	tmpbuf = malloc(BUFFER_SIZE + 1 * sizeof (char));
 	if (!tmpbuf)
 		return (ft_free(&buf, &tmpbuf));
 	while (byte > 0 && checker != 1)
@@ -74,7 +74,7 @@ char	*read_line(int fd, char *buf, int byte)
 			return (ft_free(&buf, &tmpbuf));
 		ft_free(&buf, NULL);
 		buf = tmp;
-		if (ft_strchr(tmpbuf, '\n') - tmpbuf)
+		if (ft_strchr_pos(tmpbuf, '\n'))
 			checker++;
 	}
 	ft_free(&tmpbuf, NULL);

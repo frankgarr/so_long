@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:15:57 by frankgar          #+#    #+#             */
-/*   Updated: 2024/02/25 11:25:49 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/11 10:57:03 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,55 +44,58 @@ char	**get_map(int fd)
 			free(map_tmp);
 		}
 		tmp = get_next_line(fd);
+		if (tmp && tmp[0] == '\n')
+			exit(ft_fd_printf(2, "%s", E_CHARS) * 0 +1);
 	}
 	map = ft_split(map_one_line, '\n');
 	free(map_one_line);
 	return (map);
 }
 
-int	syntax(t_map *map, int y, t_player *p)
+int	syntax(t_map *map, char **tmp_map, t_player *p)
 {
 	int	x;
 
-	x = -1;
-	while (map->map[y][++x])
+	x = 0;
+	while (tmp_map[map->len][x])
 	{
-		if (!ft_strchr("10CEP", map->map[y][x]))
-			exit(ft_fd_printf(2, "Error\nUnexpected Map Characters Found.\n") \
-					* 0 +1);
-		if ((!y || !x || !map->map[y][x + 1] || !map->map[y + 1]) &&
-				map->map[y][x] != '1')
-			exit(ft_fd_printf(2, "Error\nMap Not Closed.\n") * 0 + 1);
-		map->c_count += (map->map[y][x] == 'C');
-		map->p_count += (map->map[y][x] == 'P');
-		map->e_count += (map->map[y][x] == 'E');
-		if (map->map[y][x] == 'P')
+		if (!ft_strchr("10CEP", tmp_map[map->len][x]))
+			exit(ft_fd_printf(2, "%s", E_CHARS) * 0 +1);
+		if ((!map->len || !x || !tmp_map[map->len][x + 1] || \
+			!tmp_map[map->len + 1]) && tmp_map[map->len][x] != '1')
+			exit(ft_fd_printf(2, "%s", E_NCLOSED) * 0 + 1);
+		map->c_count += (tmp_map[map->len][x] == 'C');
+		map->p_count += (tmp_map[map->len][x] == 'P');
+		map->e_count += (tmp_map[map->len][x] == 'E');
+		if (tmp_map[map->len][x++] == 'P')
 		{
-			p->x = x;
-			p->y = y;
+			p->x = x - 1;
+			p->y = map->len;
+			tmp_map[map->len][x - 1] = '0';
 		}
 	}
-	if (y == 0)
-		map->map_len = x;
-	else if (x != map->map_len)
-		exit(ft_fd_printf(2, "Error\nMap Doesn't Have a Grid Shape.\n") * 0 +1);
+	if (map->len == 0)
+		map->with = x;
+	else if (x != map->with)
+		exit(ft_fd_printf(2, "%s", E_NGRIP) * 0 + 1);
 	return (0);
 }
 
-int	parsing(int fd)
+int	parsing(t_map *map, int fd, t_player *p)
 {
-	t_map		map;
-	t_player	p;
-	int			y;
+	char		**tmp_map;
 
-	y = 0;
-	ft_bzero(&map, sizeof(t_map));
-	map.map = get_map(fd);
-	while (map.map[y])
-		syntax(&map, y++, &p);
-	if (map.p_count != 1 || map.e_count != 1 || map.c_count < 1)
-		exit(ft_fd_printf(2, "Error\nAmount On The Map Content Is Not Right.\n")
-			* 0 + 1);
-	ft_floodfill(&map, p);
+	tmp_map = get_map(fd);
+	ft_bzero(map, sizeof(t_map));
+	while (tmp_map[map->len])
+	{
+		syntax(map, tmp_map, p);
+		map->len++;
+	}
+	if (map->p_count != 1 || map->e_count != 1 || map->c_count < 1)
+		exit(ft_fd_printf(2, "%s", E_CONTENT) * 0 + 1);
+	ft_floodfill(tmp_map, *p);
+	add_map(map, tmp_map);
+	malloc_free_chars(tmp_map, map->len);
 	return (1);
 }
