@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 11:21:21 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/12 13:04:51 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:04:32 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,56 +21,54 @@ int exit_window(t_win *mlx)
 
 int event(t_win *mlx)
 {
-	int	flag;
+	static int	offsets[5][2] = {{0, 0}, {1, 0}, {-1, 0}, {0, -1}, {0, 1}};
+	int			flag;
+	int			i;
+	int			y;
+	int			x;
 
+	i = -1;
 	flag = 0;
-	if (mlx->map.map[mlx->p.y + 1][mlx->p.x] == 'c')
+	while (++i < 5)
 	{
-		mlx->map.map[mlx->p.y + 1][mlx->p.x] = 'C';
-		mlx->p.c_count++;
-		flag++;
+		y = mlx->p.y + offsets[i][0];
+		x = mlx->p.x + offsets[i][1];
+		if (mlx->map.map[y][x] == 'c')
+		{
+			mlx->map.map[y][x] = 'C';
+			mlx->p.c_count++;
+		}
 	}
-	if (mlx->map.map[mlx->p.y - 1][mlx->p.x] == 'c')
-	{
-		mlx->map.map[mlx->p.y - 1][mlx->p.x] = 'C';
-		mlx->p.c_count++;
-		flag++;
-	}
-	if (mlx->map.map[mlx->p.y][mlx->p.x + 1] == 'c')
-	{
-		mlx->map.map[mlx->p.y][mlx->p.x + 1] = 'C';
-		mlx->p.c_count++;
-		flag++;
-	}
-	if (mlx->map.map[mlx->p.y][mlx->p.x - 1] == 'c')
-	{
-		mlx->map.map[mlx->p.y][mlx->p.x - 1] = 'C';
-		mlx->p.c_count++;
-		flag++;
-	}
-	ft_wait(0, 100);
-	print_ilu(mlx, 'C');
+	x = 0;
+	y = 0;
+	if (mlx->p.c_count == mlx->map.c_count)
+		if (dox_items(mlx, &y, &x, 'e') == 1)
+		{
+			mlx->map.map[y][x] = 'E';
+			mlx->p.c_count++;
+		}
 	return (0);
 }
+
 int render_game(t_win *mlx)
 {
 	if (mlx->event == 1)
 	{
-		put_base_map(mlx);
-		print_ilu(mlx, 'p');
-		print_ilu(mlx, 'C');
-		print_img(mlx, mlx->p.y, mlx->p.x, mlx->p.sprite);
-		//event(mlx);
-		mlx->event = 0;
-		return (1);
+		event(mlx);
+		print_ilu(mlx);
 	}
 	else if (mlx->event == 2)
 	{
 		put_base_map(mlx);
-		print_ilu(mlx, 'p');
-		print_img(mlx, mlx->p.y, mlx->p.x, mlx->p.sprite);
-		mlx->event = 0;
+		print_ilu(mlx);
 	}
+	else if (mlx->event == 3)
+	{
+		ft_printf("YUPI eralono's WIN\n");
+		exit(0);
+		//exit_window;
+	}
+	mlx->event = 0;
 	return (0);
 }
 

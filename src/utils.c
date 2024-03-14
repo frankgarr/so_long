@@ -6,18 +6,13 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 14:23:34 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/12 09:31:55 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:04:15 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_wait(int i, int max)
-{
-	if (i < max)
-		ft_wait(++i, max);
-}
-//ft_printf("PLAYER[%d][%d]  [%c]  ---> [%c]   [%d][%d]", mlx->p.y, mlx->p.x, mlx->map.map[mlx->p.y][mlx->p.x], mlx->map.map[y][x], y, x);
+//ft_printf("PLAYER[%d][%d]  [%c]  ---> [%c]   [%d][%d]\n", mlx->p.y, mlx->p.x, mlx->map.map[mlx->p.y][mlx->p.x], mlx->map.map[y][x], y, x);
 int	movement(t_win *mlx, int y, int x)
 {
 	mlx->event = 1;
@@ -26,7 +21,7 @@ int	movement(t_win *mlx, int y, int x)
 	mlx->p.sprite += ((y - mlx->p.y == 1 && x - mlx->p.x == 0) * PJ_UP);
 	mlx->p.sprite += ((y - mlx->p.y == 0 && x - mlx->p.x == -1) * PJ_LEFT);
 	if (MANDATORI == 1 && (mlx->map.map[y][x] != '1'
-				&& mlx->map.map[y][x] != 'c'))
+				&& mlx->map.map[y][x] != 'c' && mlx->map.map[y][x] != 'C'))
 	{ 
 		mlx->p.y = y;
 		mlx->p.x = x;
@@ -41,6 +36,8 @@ int	movement(t_win *mlx, int y, int x)
 		mlx->p.moves++;
 		ft_printf("Moves --> %d\n", mlx->p.moves);
 	}
+	if (mlx->map.map[y][x] == 'E')
+		mlx->event = 3;
 	return (1);
 }
 

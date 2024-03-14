@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:41:34 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/12 13:02:44 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:41:50 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 # define WALL_UL2 37
 # define WALL_UL3 38
 # define WALL_UR1 39
-# define WALL_UR2 34
+# define WALL_UR2 40
 # define WALL_UR3 41
 
 # define SPRITE_1 "./sprites/Character/Right.xpm" 
@@ -161,7 +161,7 @@ int		init_images(t_map *map, t_win *mlx);
 int		movement(t_win *mlx, int y, int x);
 int		print_img(t_win *mlx, int y, int x, int n);
 int		put_base_map(t_win *mlx);
-int		print_ilu(t_win *mlx, char c);
-void    ft_wait(int i, int max);
+int		print_ilu(t_win *mlx);
+int		dox_items(t_win *mlx, int *y, int *x, char c);
 
 #endif
