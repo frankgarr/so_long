@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 11:21:21 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/13 13:04:32 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:56:20 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,39 +22,41 @@ int exit_window(t_win *mlx)
 int event(t_win *mlx)
 {
 	static int	offsets[5][2] = {{0, 0}, {1, 0}, {-1, 0}, {0, -1}, {0, 1}};
-	int			flag;
 	int			i;
 	int			y;
 	int			x;
 
-	i = -1;
-	flag = 0;
-	while (++i < 5)
-	{
-		y = mlx->p.y + offsets[i][0];
-		x = mlx->p.x + offsets[i][1];
-		if (mlx->map.map[y][x] == 'c')
-		{
-			mlx->map.map[y][x] = 'C';
-			mlx->p.c_count++;
-		}
-	}
 	x = 0;
 	y = 0;
+	while (dox_items(mlx, &y, &x, 'C'))
+	{
+		i = -1;
+		while (++i < 5)
+		{
+			if (mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] == 'c')
+			{
+				mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] = 'C';
+				mlx->p.c_count++;
+			}
+		}
+		x++;
+	}
 	if (mlx->p.c_count == mlx->map.c_count)
+	{
 		if (dox_items(mlx, &y, &x, 'e') == 1)
 		{
 			mlx->map.map[y][x] = 'E';
 			mlx->p.c_count++;
 		}
+	}
 	return (0);
 }
 
 int render_game(t_win *mlx)
 {
+	event(mlx);
 	if (mlx->event == 1)
 	{
-		event(mlx);
 		print_ilu(mlx);
 	}
 	else if (mlx->event == 2)
@@ -64,10 +66,9 @@ int render_game(t_win *mlx)
 	}
 	else if (mlx->event == 3)
 	{
-		ft_printf("YUPI eralono's WIN\n");
 		exit(0);
 		//exit_window;
-	}
+	}	
 	mlx->event = 0;
 	return (0);
 }

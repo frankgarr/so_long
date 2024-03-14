@@ -6,15 +6,15 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 17:11:52 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/12 10:55:53 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:48:14 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	map_fill(char **map, int x, int y)
+int	map_fill(char **map, int x, int y, char *pass)
 {
-	if (!ft_strchr("0CEP", map[y][x]))
+	if (!ft_strchr(pass, map[y][x]))
 		return (0);
 	else if (map[y][x] == '0')
 		map[y][x] = ' ';
@@ -22,10 +22,10 @@ int	map_fill(char **map, int x, int y)
 		map[y][x] = 'e';
 	else if (map[y][x] == 'C')
 		map[y][x] = 'c';
-	map_fill(map, x, y + 1);
-	map_fill(map, x + 1, y);
-	map_fill(map, x - 1, y);
-	map_fill(map, x, y - 1);
+	map_fill(map, x, y + 1, pass);
+	map_fill(map, x + 1, y, pass);
+	map_fill(map, x - 1, y, pass);
+	map_fill(map, x, y - 1, pass);
 	return (1);
 }
 
@@ -35,7 +35,7 @@ int	ft_floodfill(char **map, t_player p)
 	int	x;
 
 	y = 0;
-	map_fill(map, p.x, p.y);
+	map_fill(map, p.x, p.y, "0EPC");
 	while (map[y])
 	{
 		x = -1;

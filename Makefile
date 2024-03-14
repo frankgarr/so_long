@@ -6,12 +6,12 @@
 #    By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 11:37:45 by frankgar          #+#    #+#              #
-#    Updated: 2024/03/11 12:31:58 by frankgar         ###   ########.fr        #
+#    Updated: 2024/03/14 15:06:57 by frankgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 INCLUDES = -I ./inc/\
            -I ./libft/\
 		   -I ./Minilibx/

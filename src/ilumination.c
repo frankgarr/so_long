@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:23:57 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/13 12:54:51 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:51:12 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,19 +158,14 @@ int	print_ilu(t_win *mlx)
 	y = 0;
 	set_ilu(mlx, mlx->p.y, mlx->p.x, 3);
 	set_ilu(mlx, mlx->p.y, mlx->p.x, 2);
-	if (mlx->map.c_count > 0)
-	{
-		while (dox_items(mlx, &y, &x, 'C') != 0)
-		{
-			set_ilu(mlx, y, x, 2);
-			x++;
-		}
-		while (dox_items(mlx, &y, &x, 'C') != 0)
-		{
-			set_ilu(mlx, y, x, 1);
-			x++;
-		}
-	}
+	while (dox_items(mlx, &y, &x, 'C') != 0)
+		set_ilu(mlx, y, x++, 2);
+	while (dox_items(mlx, &y, &x, 'E') != 0)	
+		set_ilu(mlx, y, x++, 2);
+	while (dox_items(mlx, &y, &x, 'C') != 0)
+		set_ilu(mlx, y, x++, 1);
+	while (dox_items(mlx, &y, &x, 'E') != 0)
+		set_ilu(mlx, y, x++, 1);
 	set_ilu(mlx, mlx->p.y, mlx->p.x, 1);
 	print_img(mlx, mlx->p.y, mlx->p.x, mlx->p.sprite);
 	return (0);
