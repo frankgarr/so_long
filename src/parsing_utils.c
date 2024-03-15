@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 17:11:52 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/14 15:45:35 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:16:20 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ int	map_fill(char **map, int x, int y, char *pass)
 	else if (map[y][x] == 'E' && ft_strchr(pass, map[y][x]))
 		map[y][x] = 's';
 	else if (map[y][x] == 'C' && ft_strchr(pass, map[y][x]))
-		map[y][x] = 'o';
+		map[y][x] = 'c';
 	else if (map[y][x] == 'b' && ft_strchr(pass, map[y][x]))
 		map[y][x] = ' ';
 	else if (map[y][x] == 's' && ft_strchr(pass, map[y][x]))
 		map[y][x] = 'e';
-	else if (map[y][x] == 'o' && ft_strchr(pass, map[y][x]))
-		map[y][x] = 'c';
 	map_fill(map, x, y + 1, pass);
 	map_fill(map, x + 1, y, pass);
 	map_fill(map, x - 1, y, pass);
@@ -41,8 +39,8 @@ int	ft_floodfill(char **map, t_player p)
 	int	x;
 
 	y = 0;
-	map_fill(map, p.x, p.y, "0ECP");
-	map_fill(map, p.x, p.y, "");
+	map_fill(map, p.x, p.y, "0EP");
+	map_fill(map, p.x, p.y, "bsPC");
 	while (map[y])
 	{
 		x = -1;
@@ -56,7 +54,7 @@ int	ft_floodfill(char **map, t_player p)
 		}
 		y++;
 	}
-	y = 0;
+	map_fill(map, p.x, p.y, "OEPCbso");
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:15:57 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/11 10:57:03 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:21:03 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int	parsing(t_map *map, int fd, t_player *p)
 	{
 		syntax(map, tmp_map, p);
 		map->len++;
+		if (map->len > 43 || map->with > 80)
+			exit(ft_fd_printf(2, "%s", E_SIZE) * 0 + 1);
 	}
 	if (map->p_count != 1 || map->e_count != 1 || map->c_count < 1)
 		exit(ft_fd_printf(2, "%s", E_CONTENT) * 0 + 1);

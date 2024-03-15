@@ -6,17 +6,15 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 11:21:21 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/14 14:56:20 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:06:42 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int exit_window(t_win *mlx)
+int exit_window(int value)
 {
-	(void)mlx;
-	//limpiar toda la memoria`
-	exit(0);
+	exit(value);
 }
 
 int event(t_win *mlx)
@@ -37,7 +35,10 @@ int event(t_win *mlx)
 			{
 				mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] = 'C';
 				mlx->p.c_count++;
+				mlx->event = 4;
 			}
+			if (mlx->event == 4)
+				return(1);
 		}
 		x++;
 	}
@@ -54,29 +55,26 @@ int event(t_win *mlx)
 
 int render_game(t_win *mlx)
 {
-	event(mlx);
 	if (mlx->event == 1)
-	{
 		print_ilu(mlx);
-	}
 	else if (mlx->event == 2)
 	{
 		put_base_map(mlx);
 		print_ilu(mlx);
 	}
+	else if (mlx->event == 4)
+		print_ilu(mlx);
 	else if (mlx->event == 3)
-	{
 		exit(0);
-		//exit_window;
-	}	
 	mlx->event = 0;
+	event(mlx);
 	return (0);
 }
 
 int	key_hook(int keycode, t_win *mlx)
 {
 	if (keycode == 53)
-		exit_window(mlx);
+		exit_window(0);
 	else if (keycode == 126 || keycode == 13)
 		movement(mlx, (mlx->p.y - 1), mlx->p.x);
 	else if (keycode == 124 || keycode == 2)
@@ -109,7 +107,7 @@ int	main(int argc, char **argv)
 			(32 * mlx.map.with), (32 * mlx.map.len + 25), "So_long");
 	mlx.event = 2;
 	mlx_hook(mlx.win, 2, 0, key_hook, &mlx);
-	mlx_hook(mlx.win, 17, 0, exit_window, &mlx);
+	mlx_hook(mlx.win, 17, 0, exit_window, 0);
 	mlx_loop_hook(mlx.mlx, render_game, &mlx);
 	mlx_loop(mlx.mlx);
 	return (0);

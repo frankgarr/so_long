@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:41:34 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/13 11:41:50 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:22:39 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define E_CONTENT "Error\nAmount On The Map Content Is Not Right.\n"
 # define E_IMPOSSIBLE "Error\nImpossible Map.\n"
 # define E_MALLOC "Error\nMalloc's Fault.\n"
+# define E_SIZE "Error\nMap too big.\n"
 
 # define PJ_RIGHT 0
 # define PJ_LEFT 1
