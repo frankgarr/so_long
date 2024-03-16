@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:23:57 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/14 10:51:12 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:29:49 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	put_ilu3(t_win *mlx, int y, int x)
 		if (x + 1 == mlx->map.with && y == 0)
 			print_img(mlx, y, x, WALL_UR3);
 	}
-	else 
+	else
 		print_img(mlx, y, x, FLOOR_3);
 	return (0);
 }
@@ -48,25 +48,7 @@ int	put_ilu2(t_win *mlx, int y, int x)
 	if (mlx->map.map[y][x] == ' ')
 		print_img(mlx, y, x, FLOOR_2);
 	else if (mlx->map.map[y][x] == '1')
-	{
-		print_img(mlx, y, x, HOLE_2);
-		if (x + 1 == mlx->map.with && y == 0)
-			print_img(mlx, y, x, WALL_UR2);
-		else if (y  + 1 == mlx->map.len && x != 0 && x + 1 != mlx->map.with)
-			print_img(mlx, y, x, WALL_D2);
-		else if (x + 1 == mlx->map.with && y != 0 && y + 1 != mlx->map.len)
-			print_img(mlx, y, x, WALL_R2);
-		else if (x == 0 && y != 0 && y + 1 != mlx->map.len)
-			print_img(mlx, y, x, WALL_L2);
-		else if (x == 0 && y == 0)
-			print_img(mlx, y, x, WALL_UL2);
-		else if (x == 0 && y + 1 == mlx->map.len)
-			print_img(mlx, y, x, WALL_DL2);
-		else if (x + 1 == mlx->map.with && y + 1 == mlx->map.len)
-			print_img(mlx, y, x, WALL_DR2);
-		else if (y == 0 && x != 0 && x + 1 != mlx->map.with)
-			print_img(mlx, y, x, WALL_U2);
-	}
+		print_walls2(mlx, y, x);
 	else if (mlx->map.map[y][x] == 'e')
 		print_img(mlx, y, x, EXIT_C2);
 	else if (mlx->map.map[y][x] == 'E')
@@ -75,7 +57,6 @@ int	put_ilu2(t_win *mlx, int y, int x)
 		print_img(mlx, y, x, TORCH_C2);
 	else if (mlx->map.map[y][x] == 'C')
 		print_img(mlx, y, x, TORCH_O1);
-
 	return (0);
 }
 
@@ -86,18 +67,7 @@ int	put_ilu1(t_win *mlx, int y, int x)
 	if (mlx->map.map[y][x] == ' ')
 		print_img(mlx, y, x, FLOOR_1);
 	else if (mlx->map.map[y][x] == '1')
-	{
-		if (y == 0)
-			print_img(mlx, y, x, WALL_U1);
-		else if (y  + 1 == mlx->map.len)
-			print_img(mlx, y, x, WALL_D1);
-		else if (x + 1 == mlx->map.with)
-			print_img(mlx, y, x, WALL_R1);
-		else if (x == 0)
-			print_img(mlx, y, x, WALL_L1);
-		else 
-			print_img(mlx, y, x, HOLE_1);
-	}
+		print_walls1(mlx, y, x);
 	else if (mlx->map.map[y][x] == 'e')
 		print_img(mlx, y, x, EXIT_C1);
 	else if (mlx->map.map[y][x] == 'E')
@@ -131,24 +101,6 @@ int	set_ilu(t_win *mlx, int y, int x, int ilu)
 	return (1);
 }
 
-int	dox_items(t_win *mlx, int *y, int *x, char c)
-{
-	while (*y < mlx->map.len)
-	{
-		while (*x < mlx->map.with)
-		{
-			if (mlx->map.map[*y][*x] == c)
-				return (1);
-			*x += 1;
-		}
-		*x = 0;
-		*y += 1;
-	}
-	*x = 0;
-	*y = 0;
-	return (0);
-}
-
 int	print_ilu(t_win *mlx)
 {
 	int	x;
@@ -160,7 +112,7 @@ int	print_ilu(t_win *mlx)
 	set_ilu(mlx, mlx->p.y, mlx->p.x, 2);
 	while (dox_items(mlx, &y, &x, 'C') != 0)
 		set_ilu(mlx, y, x++, 2);
-	while (dox_items(mlx, &y, &x, 'E') != 0)	
+	while (dox_items(mlx, &y, &x, 'E') != 0)
 		set_ilu(mlx, y, x++, 2);
 	while (dox_items(mlx, &y, &x, 'C') != 0)
 		set_ilu(mlx, y, x++, 1);

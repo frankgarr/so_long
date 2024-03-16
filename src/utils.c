@@ -6,13 +6,12 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 14:23:34 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/14 12:41:26 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:33:54 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-//ft_printf("PLAYER[%d][%d]  [%c]  ---> [%c]   [%d][%d]\n", mlx->p.y, mlx->p.x, mlx->map.map[mlx->p.y][mlx->p.x], mlx->map.map[y][x], y, x);
 int	set_player_sprite(t_win *mlx, int y, int x)
 {
 	mlx->event = 1;
@@ -31,15 +30,13 @@ int	movement(t_win *mlx, int y, int x)
 {
 	set_player_sprite(mlx, y, x);
 	if (mlx->map.map[y][x] != '1' && mlx->map.map[y][x] != 'C'
-			&& mlx->map.map[y][x] != 'c' && mlx->map.map[y][x] != 'E')
-	{ 
+			&& mlx->map.map[y][x] != 'c' && mlx->map.map[y][x] != 'f')
+	{
 		mlx->p.y = y;
 		mlx->p.x = x;
 		mlx->p.moves++;
 		ft_printf("Moves --> %d\n", mlx->p.moves, mlx->p.c_count);
-	}	
-	else if (mlx->map.map[y][x] == 'E')
-		mlx->event = 3;
+	}
 	if (mlx->map.map[y][x] == 'c')
 	{
 		mlx->map.map[y][x] = 'C';
@@ -56,7 +53,7 @@ int	print_img(t_win *mlx, int y, int x, int n)
 	return (0);
 }
 
-int print_set_of_Walls(t_win *mlx, int y, int x)
+int	print_set_of_walls(t_win *mlx, int y, int x)
 {
 	if (mlx->map.map[y][x] == '1')
 		print_img(mlx, y, x, HOLE_3);
@@ -91,9 +88,8 @@ int	put_base_map(t_win *mlx)
 		while (++x < mlx->map.with)
 		{
 			print_img(mlx, y, x, FLOOR_3);
-			print_set_of_Walls(mlx, y, x);
+			print_set_of_walls(mlx, y, x);
 		}
 	}
 	return (1);
-}	
-//mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->map.sprites[mlx->p.sprite].img, mlx->p.x * 32, mlx->p.y * 32);
+}

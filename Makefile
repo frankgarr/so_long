@@ -6,7 +6,7 @@
 #    By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 11:37:45 by frankgar          #+#    #+#              #
-#    Updated: 2024/03/15 12:57:20 by frankgar         ###   ########.fr        #
+#    Updated: 2024/03/16 11:19:08 by frankgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ INCLUDES = -I ./inc/\
            -I ./libft/\
 		   -I ./Minilibx/
 SRC = parsing.c parsing_utils.c main.c globals.c init_mlx.c utils.c \
-		ilumination.c
+		ilumination.c ilumination_utils.c
 
 DIR_SRC = ./src
 DIR_OBJ = $(DIR_SRC)/obj

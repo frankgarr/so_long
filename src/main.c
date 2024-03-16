@@ -6,20 +6,20 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 11:21:21 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/15 13:06:42 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:36:25 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int exit_window(int value)
+int	exit_window(int value)
 {
 	exit(value);
 }
 
-int event(t_win *mlx)
+int	event(t_win *mlx)
 {
-	static int	offsets[5][2] = {{0, 0}, {1, 0}, {-1, 0}, {0, -1}, {0, 1}};
+	static int	offsets[4][2] = {{1, 0}, {-1, 0}, {0, -1}, {0, 1}};
 	int			i;
 	int			y;
 	int			x;
@@ -29,19 +29,35 @@ int event(t_win *mlx)
 	while (dox_items(mlx, &y, &x, 'C'))
 	{
 		i = -1;
-		while (++i < 5)
+		while (++i < 4)
 		{
 			if (mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] == 'c')
 			{
 				mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] = 'C';
 				mlx->p.c_count++;
-				mlx->event = 4;
+				mlx->event = 1;
 			}
-			if (mlx->event == 4)
-				return(1);
 		}
+		if (mlx->event == 1)
+			return (1);
 		x++;
 	}
+	return (0);
+}
+
+int	render_game(t_win *mlx)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	if (mlx->event == 1)
+		print_ilu(mlx);
+	else if (mlx->map.map[mlx->p.y][mlx->p.x] == 'E')
+		exit_window(0);
+	mlx->event = 0;
+	event(mlx);
 	if (mlx->p.c_count == mlx->map.c_count)
 	{
 		if (dox_items(mlx, &y, &x, 'e') == 1)
@@ -50,24 +66,6 @@ int event(t_win *mlx)
 			mlx->p.c_count++;
 		}
 	}
-	return (0);
-}
-
-int render_game(t_win *mlx)
-{
-	if (mlx->event == 1)
-		print_ilu(mlx);
-	else if (mlx->event == 2)
-	{
-		put_base_map(mlx);
-		print_ilu(mlx);
-	}
-	else if (mlx->event == 4)
-		print_ilu(mlx);
-	else if (mlx->event == 3)
-		exit(0);
-	mlx->event = 0;
-	event(mlx);
 	return (0);
 }
 
@@ -100,17 +98,17 @@ int	main(int argc, char **argv)
 	if (fd < 0)
 		exit(ft_fd_printf(2, "%s", E_OPEN) * 0 + 1);
 	parsing(&mlx.map, fd, &mlx.p);
-	close(fd);
+	if (close(fd))
+		exit(ft_fd_printf(2, "%s", E_CLOSE) * 0 + 1);
 	mlx.mlx = mlx_init();
 	init_images(&mlx.map, &mlx);
 	mlx.win = mlx_new_window(mlx.mlx,
 			(32 * mlx.map.with), (32 * mlx.map.len + 25), "So_long");
-	mlx.event = 2;
+	mlx.event = 1;
+	put_base_map(&mlx);
 	mlx_hook(mlx.win, 2, 0, key_hook, &mlx);
 	mlx_hook(mlx.win, 17, 0, exit_window, 0);
 	mlx_loop_hook(mlx.mlx, render_game, &mlx);
 	mlx_loop(mlx.mlx);
 	return (0);
 }
-//mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->map.sprites[mlx->p.sprite].img, 5, 5);
-

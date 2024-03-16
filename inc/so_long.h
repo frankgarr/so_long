@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:41:34 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/15 11:22:39 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:06:19 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define E_IMPOSSIBLE "Error\nImpossible Map.\n"
 # define E_MALLOC "Error\nMalloc's Fault.\n"
 # define E_SIZE "Error\nMap too big.\n"
+# define E_CLOSE "Error\nNot able to Close the file.\n"
 
 # define PJ_RIGHT 0
 # define PJ_LEFT 1
@@ -164,5 +165,7 @@ int		print_img(t_win *mlx, int y, int x, int n);
 int		put_base_map(t_win *mlx);
 int		print_ilu(t_win *mlx);
 int		dox_items(t_win *mlx, int *y, int *x, char c);
+int		print_walls1(t_win *mlx, int y, int x);
+int		print_walls2(t_win *mlx, int y, int x);
 
 #endif
