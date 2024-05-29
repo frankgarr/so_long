@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ilumination_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: frankgar <frankgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:05:36 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/16 11:18:48 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:01:41 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
+
+int	decide_ilu(t_win *mlx, int y, int x)
+{
+	static int	set[13][2] = {{0, 0}, {1, 0}, {-1, 0}, {0, -1}, {0, 1}, \
+		{1, 1}, {0, 2}, {2, 0}, {1, -1}, {0, -2}, {-1, -1}, {-2, 0}, {-1, 1}};
+	int			i;
+	char		c;
+
+	i = -1;
+	while (++i < 13)
+	{
+		if (!(y + set[i][0] < 0 || x + set[i][1] < 0
+			|| x + set[i][1] >= mlx->map.with || y + set[i][0] >= mlx->map.len))
+		{
+			c = mlx->map.map[y + set[i][0]][x + set[i][1]];
+			if (c == 'C' || c == 'F' || c == 'E'
+				|| (x + set[i][1] == mlx->p.x && y + set[i][0] == mlx->p.y))
+			{
+				if (i < 5)
+					return (1);
+				return (2);
+			}
+		}
+	}
+	return (3);
+}
 
 int	dox_items(t_win *mlx, int *y, int *x, char c)
 {

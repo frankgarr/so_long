@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: frankgar <frankgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:15:57 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/15 11:21:03 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:57:55 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	ft_count_chars(char *str, char target)
+{
+	int	i;
+
+	i = 0;
+	while (str)
+	{
+		if (*str == target)
+			i++;
+		str++;
+	}
+	return (i);
+}
 
 int	correct_file(char *pfile)
 {
@@ -44,6 +58,8 @@ char	**get_map(int fd)
 			free(map_tmp);
 		}
 		tmp = get_next_line(fd);
+		/*if (ft_strlen(tmp) > 80 || ft_count_chars(map_one_line, '\n') > 43)
+			exit(ft_fd_printf(2, "%s", E_SIZE) * 0 +1);*/
 		if (tmp && tmp[0] == '\n')
 			exit(ft_fd_printf(2, "%s", E_CHARS) * 0 +1);
 	}

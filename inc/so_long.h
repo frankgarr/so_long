@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: frankgar <frankgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:41:34 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/16 13:06:19 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:46:20 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,7 @@ int		print_ilu(t_win *mlx);
 int		dox_items(t_win *mlx, int *y, int *x, char c);
 int		print_walls1(t_win *mlx, int y, int x);
 int		print_walls2(t_win *mlx, int y, int x);
+int		decide_ilu(t_win *mlx, int y, int x);
+int 	ft_count_chars(char *str, char target);
 
 #endif

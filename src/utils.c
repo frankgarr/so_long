@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: frankgar <frankgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 14:23:34 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/16 15:33:54 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:56:00 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	movement(t_win *mlx, int y, int x)
 {
 	set_player_sprite(mlx, y, x);
 	if (mlx->map.map[y][x] != '1' && mlx->map.map[y][x] != 'C'
-			&& mlx->map.map[y][x] != 'c' && mlx->map.map[y][x] != 'f')
+		&& mlx->map.map[y][x] != 'c' && mlx->map.map[y][x] != 'F')
 	{
 		mlx->p.y = y;
 		mlx->p.x = x;

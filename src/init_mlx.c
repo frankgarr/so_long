@@ -25,7 +25,9 @@ int	init_images(t_map *map, t_win *mlx)
 		map->sprites[i].img = mlx_xpm_file_to_image(mlx->mlx, get_path(i), \
 				&map->sprites[i].x, &map->sprites[i].y);
 		if (open(get_path(i), O_RDONLY) == -1)
-			exit(ft_fd_printf(2, "%s", E_OPEN) * 0 + 1);
+		{
+				exit(ft_fd_printf(2, "%s", E_OPEN) * 0 + 1);
+		}
 	}
 	return (0);
 }

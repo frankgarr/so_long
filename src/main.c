@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: frankgar <frankgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 11:21:21 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/16 15:36:25 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:17:42 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,16 @@ int	event(t_win *mlx)
 		{
 			if (mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] == 'c')
 			{
-				mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] = 'C';
+				mlx->map.map[(y + offsets[i][0])][(x + offsets[i][1])] = 'f';
 				mlx->p.c_count++;
 				mlx->event = 1;
 			}
 		}
-		if (mlx->event == 1)
-			return (1);
+		mlx->map.map[y][x] = 'F';
 		x++;
 	}
+	while (dox_items(mlx, &y, &x, 'f'))
+		mlx->map.map[y][x] = 'C';
 	return (0);
 }
 
@@ -92,7 +93,7 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	ft_bzero(&mlx, sizeof(t_win));
 	if (argc != 2)
-		exit(ft_fd_printf(2, "%s", E_ARGS) * 0 + 1);
+		exit(ft_fd_printf(2, "%s%s", E_ARGS) * 0 + 1);
 	if (!correct_file(argv[1]))
 		exit(ft_fd_printf(2, "%s", E_FILE) * 0 + 1);
 	if (fd < 0)
