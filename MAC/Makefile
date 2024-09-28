@@ -28,7 +28,8 @@ all: dir $(NAME)
 
 -include $(DEP)
 dir:
-	make -C ./libft/ --no-print-directory 
+	make -C ./libft/ --no-print-directory
+	make -C ./Minilibx/ --no-print-directoy
 	mkdir -p $(DIR_OBJ)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c Makefile
