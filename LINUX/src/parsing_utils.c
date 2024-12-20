@@ -6,7 +6,7 @@
 /*   By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 17:11:52 by frankgar          #+#    #+#             */
-/*   Updated: 2024/03/15 11:16:20 by frankgar         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:16:23 by frankgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	ft_floodfill(char **map, t_player p)
 	int	y;
 	int	x;
 
-	y = 0;
 	map_fill(map, p.x, p.y, "0EP");
 	map_fill(map, p.x, p.y, "bsPC");
+	y = 0;
 	while (map[y])
 	{
 		x = -1;

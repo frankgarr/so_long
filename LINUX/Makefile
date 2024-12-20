@@ -6,7 +6,7 @@
 #    By: frankgar <frankgar@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 11:37:45 by frankgar          #+#    #+#              #
-#    Updated: 2024/07/19 09:57:14 by frankgar         ###   ########.fr        #
+#    Updated: 2024/12/20 21:19:15 by frankgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ $(NAME): $(OBJ) ./libft/libft.a
 	echo "$(NAME) Created :D"
 clean:
 	rm -rf $(DIR_OBJ)
+	make clean -C ./Minilibx/ --no-print-directory
 	make clean -C ./libft/ --no-print-directory 
 	echo "DEPENDENCIES Erased :D"
 fclean: clean
