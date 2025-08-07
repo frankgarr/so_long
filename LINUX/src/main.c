@@ -99,7 +99,7 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	ft_bzero(&mlx, sizeof(t_win));
 	if (argc != 2)
-		exit(ft_fd_printf(2, "%s%s", E_ARGS) * 0 + 1);
+		exit(ft_fd_printf(2, "%s", E_ARGS) * 0 + 1);
 	if (!correct_file(argv[1]))
 		exit(ft_fd_printf(2, "%s", E_FILE) * 0 + 1);
 	if (fd < 0)
